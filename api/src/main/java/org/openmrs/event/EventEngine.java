@@ -126,8 +126,8 @@ public class EventEngine {
     private synchronized void initializeIfNeeded() {
         if (jmsTemplate == null) {
             log.info("creating connection factory");
-            AdministrationService administrationService = Context.getService(AdministrationService.class);
-            String property = administrationService.getGlobalProperty("activeMQ.externalUrl");
+			String property = Context.getRegisteredComponent("adminService", AdministrationService.class)
+					.getGlobalProperty("activeMQ.externalUrl");
             String brokerURL;
             if (property == null || property.isEmpty()) {
                 String dataDirectory = new File(OpenmrsUtil.getApplicationDataDirectory(), "activemq-data").getAbsolutePath();
